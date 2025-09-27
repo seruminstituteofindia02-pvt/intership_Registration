@@ -2,22 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SII | Register</title>
+  <title>SII | Internship Registration</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
       margin: 0;
       padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #0f2027;
+      background: linear-gradient(120deg, #2c5364, #203a43, #0f2027);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* 3D Animated Background */
+    .background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      background: radial-gradient(circle, #004aad55 2%, transparent 60%);
+      animation: pulse 8s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); opacity: 0.7; }
+      to { transform: scale(1.2); opacity: 1; }
     }
 
     /* Navbar */
     .navbar {
-      background: #004aad;
+      background: rgba(0, 74, 173, 0.85);
       padding: 0.8em 2em;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: sticky;
+      top: 0;
     }
 
     .navbar .logo img {
@@ -40,53 +63,58 @@
     }
 
     .navbar ul li a:hover {
-      color: #e60000;
+      color: #ffcc00;
     }
 
     .navbar ul li a.active {
-      color: #e60000;
+      color: #ffcc00;
     }
 
-    /* Register Box */
+    /* Transparent Form Container */
     .container {
-      background: white;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
       padding: 2em;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      width: 340px;
-      margin: 5% auto;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+      width: 400px;
+      margin: 4% auto;
       text-align: center;
     }
 
     h2 {
-      color: #004aad;
-      margin: 0 0 1em;
+      color: #ffcc00;
+      margin-bottom: 1em;
     }
 
-    .form-container input {
+    .form-container select,
+    .form-container input,
+    .form-container button {
       width: 100%;
-      padding: 0.6em;
+      padding: 0.7em;
       margin-bottom: 1em;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
+      border: none;
       font-size: 0.95em;
     }
 
+    .form-container select,
+    .form-container input {
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+
     .form-container button {
-      width: 100%;
-      padding: 0.8em;
       background: #004aad;
       color: white;
-      font-size: 1em;
       font-weight: bold;
-      border: none;
-      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: transform 0.2s ease, background 0.3s ease;
     }
 
     .form-container button:hover {
       background: #002f73;
+      transform: scale(1.05);
     }
 
     .message {
@@ -98,16 +126,19 @@
     .footer {
       margin-top: 1.5em;
       font-size: 0.8em;
-      color: #777;
+      color: #ddd;
     }
 
     .footer span {
-      color: #e60000;
+      color: #ffcc00;
       font-weight: bold;
     }
   </style>
 </head>
 <body>
+  <!-- Animated Background -->
+  <div class="background"></div>
+
   <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">
@@ -123,11 +154,70 @@
 
   <!-- Register Form -->
   <div class="container">
-    <h2>Register</h2>
+    <h2>Internship Registration</h2>
     <form id="regForm" class="form-container">
       <input type="text" id="name" name="name" placeholder="Full Name" required />
       <input type="email" id="email" name="email" placeholder="Email" required />
       <input type="password" id="password" name="password" placeholder="Password" required />
+
+      <!-- University Dropdown -->
+      <select id="university" name="university" required>
+        <option value="">Select University</option>
+        <optgroup label="IITs">
+          <option>IIT Bombay</option>
+          <option>IIT Delhi</option>
+          <option>IIT Kanpur</option>
+          <option>IIT Madras</option>
+          <option>IIT Kharagpur</option>
+          <option>IIT Roorkee</option>
+          <option>IIT Guwahati</option>
+          <option>IIT Hyderabad</option>
+        </optgroup>
+        <optgroup label="NITs">
+          <option>NIT Trichy</option>
+          <option>NIT Warangal</option>
+          <option>NIT Rourkela</option>
+          <option>NIT Surathkal</option>
+          <option>NIT Calicut</option>
+        </optgroup>
+        <optgroup label="Central Universities">
+          <option>Delhi University</option>
+          <option>Jawaharlal Nehru University</option>
+          <option>Banaras Hindu University</option>
+          <option>Aligarh Muslim University</option>
+        </optgroup>
+        <optgroup label="State Universities">
+          <option>Anna University</option>
+        </optgroup>
+      </select>
+
+      <!-- Department Dropdown -->
+      <select id="department" name="department" required>
+        <option value="">Select Department</option>
+        <option>Biotechnology Engineering</option>
+        <option>Biomedical Engineering</option>
+        <option>Chemical Engineering</option>
+        <option>Biochemical Engineering</option>
+        <option>Microbiology</option>
+        <option>Bioinformatics</option>
+        <option>Environmental Biotechnology</option>
+        <option>Pharmaceutical Biotechnology</option>
+      </select>
+
+      <!-- Nationality -->
+      <select id="nationality" name="nationality" required>
+        <option value="">Select Nationality</option>
+        <option>Indian</option>
+        <option>International</option>
+      </select>
+
+      <!-- Internship Duration -->
+      <select id="duration" name="duration" required>
+        <option value="">Internship Duration</option>
+        <option>1-2 Months</option>
+        <option>6 Months</option>
+      </select>
+
       <button type="submit">Submit</button>
     </form>
 
@@ -141,8 +231,6 @@
   <script>
     const form = document.getElementById("regForm");
     const msgDiv = document.getElementById("message");
-
-    // 🔹 Replace with your actual Apps Script Web App URL
     const scriptURL = "https://script.google.com/macros/s/AKfycby5-b_M4fcmwhrbxVec63wPH3z1hse2WECwDPDh4hhLSSRrI78PCHBeOnaIhwmEJ4B-/exec";
 
     form.addEventListener("submit", e => {
@@ -152,25 +240,25 @@
       fetch(scriptURL, { method: "POST", body: data })
         .then(async response => {
           try {
-            return await response.json(); // Expect JSON
+            return await response.json();
           } catch {
-            const text = await response.text(); // Fallback for non-JSON
+            const text = await response.text();
             throw new Error("Non-JSON response: " + text);
           }
         })
         .then(r => {
           if (r.result === "success") {
-            msgDiv.style.color = "green";
-            msgDiv.textContent = "✅ Registration successful!";
+            msgDiv.style.color = "limegreen";
+            msgDiv.textContent = "Registration successful!";
             form.reset();
           } else {
             msgDiv.style.color = "red";
-            msgDiv.textContent = "❌ Error: " + (r.error || "Unknown error occurred.");
+            msgDiv.textContent = "Error: " + (r.error || "Unknown error occurred.");
           }
         })
         .catch(err => {
           msgDiv.style.color = "red";
-          msgDiv.textContent = "⚠️ Fetch error: " + err.message;
+          msgDiv.textContent = "Fetch error: " + err;
         });
     });
   </script>
