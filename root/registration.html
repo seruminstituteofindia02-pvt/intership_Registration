@@ -141,6 +141,8 @@
   <script>
     const form = document.getElementById("regForm");
     const msgDiv = document.getElementById("message");
+
+    // 🔹 Replace with your actual Apps Script Web App URL
     const scriptURL = "https://script.google.com/macros/s/AKfycby5-b_M4fcmwhrbxVec63wPH3z1hse2WECwDPDh4hhLSSRrI78PCHBeOnaIhwmEJ4B-/exec";
 
     form.addEventListener("submit", e => {
@@ -148,20 +150,27 @@
       const data = new URLSearchParams(new FormData(form));
 
       fetch(scriptURL, { method: "POST", body: data })
-        .then(response => response.json())
+        .then(async response => {
+          try {
+            return await response.json(); // Expect JSON
+          } catch {
+            const text = await response.text(); // Fallback for non-JSON
+            throw new Error("Non-JSON response: " + text);
+          }
+        })
         .then(r => {
           if (r.result === "success") {
             msgDiv.style.color = "green";
-            msgDiv.textContent = "Registration successful!";
+            msgDiv.textContent = "✅ Registration successful!";
             form.reset();
           } else {
             msgDiv.style.color = "red";
-            msgDiv.textContent = "Error: " + (r.error || "Unknown error occurred.");
+            msgDiv.textContent = "❌ Error: " + (r.error || "Unknown error occurred.");
           }
         })
         .catch(err => {
           msgDiv.style.color = "red";
-          msgDiv.textContent = "Fetch error: " + err;
+          msgDiv.textContent = "⚠️ Fetch error: " + err.message;
         });
     });
   </script>
